@@ -7,13 +7,11 @@ export function AuthProvider({children})
 {
     const [user,setUser]=useState(null)
     const [loading,setLoading]=useState(false)
-    const [error,setError]=useState(null)
-    const [isRegister,setIsRegister]=useState(false)
-    
+    const [accessToken,setAccessToken]=useState(null)
 
     return(
         <authContext.Provider 
-        value={{user,setUser,loading,setLoading,error,setError,isRegister,setIsRegister}}>
+        value={{user,setUser,loading,setLoading,accessToken,setAccessToken}}>
         {children}
         </authContext.Provider>
     )

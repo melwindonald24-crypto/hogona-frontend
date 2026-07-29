@@ -1,22 +1,24 @@
 import { useContext, useCallback } from "react";
 import { login, register, logout } from "../services/authServices.js";
-import { authContext } from "../../context/authContext.js";
+import { authContext } from "../context/authContext.js";
 
 export function useAuthHandlers() {
-  const { setUser, setLoading, setError } = useContext(authContext);
+  const { setUser, setLoading,setAccesssToken} = useContext(authContext);
   const loginHandler = useCallback(
     async (data) => {
       setLoading(true);
       try {
-        const { user } = await login(data);
-        setUser(user);
+        const { user,accessToken } = await login(data);
+        setUser(user)
+        setAccesssToken(accessToken)
+        return("login sucessfull!!")
       } catch (error) {
-        setError(error.message);
+         throw new Error(error.message,{cause:error});
       } finally {
         setLoading(false);
       }
     },
-    [setUser, setLoading, setError],
+    [setUser, setLoading],
   );
 
   const registerHandler = useCallback(
@@ -27,11 +29,11 @@ export function useAuthHandlers() {
       const message = await register(data);
       return message;
     } catch (error) {
-      setError(error.message);
+      throw new Error(error.message,{cause:error});
     } finally {
       setLoading(false);
     }
-  },[setLoading,setError])
+  },[setLoading])
 
    const logoutHandler = useCallback(
     async () => {
@@ -41,11 +43,11 @@ export function useAuthHandlers() {
       setUser(null)
       return message;
     } catch (error) {
-      setError(error.message);
+      throw new Error(error.message,{cause:error});
     } finally {
       setLoading(false);
     }
-  },[setUser,setLoading,setError])
+  },[setUser,setLoading])
 
   return {loginHandler,registerHandler,logoutHandler}
 }
