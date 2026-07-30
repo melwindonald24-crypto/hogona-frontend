@@ -1,16 +1,17 @@
 import { useContext, useCallback } from "react";
 import { login, register, logout } from "../services/authServices.js";
-import { authContext } from "../context/authContext.js";
+import { authContext } from "../context/authContext.jsx";
+import { setAccessToken } from "../../../shared/services/authenticator.js";
 
 export function useAuthHandlers() {
-  const { setUser, setLoading,setAccesssToken} = useContext(authContext);
+  const { setUser, setLoading} = useContext(authContext);
   const loginHandler = useCallback(
     async (data) => {
       setLoading(true);
       try {
         const { user,accessToken } = await login(data);
         setUser(user)
-        setAccesssToken(accessToken)
+        setAccessToken(accessToken)
         return("login sucessfull!!")
       } catch (error) {
          throw new Error(error.message,{cause:error});
@@ -18,7 +19,7 @@ export function useAuthHandlers() {
         setLoading(false);
       }
     },
-    [setUser, setLoading],
+    [setUser, setLoading,],
   );
 
   const registerHandler = useCallback(

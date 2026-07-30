@@ -18,22 +18,24 @@ export async function refreshAccessToken()
         refreshPromise=axios.post(url,{},{
         withCredentials:true
         })
-        try{
-           const res= await refreshPromise
-           return res.data
-        }catch(error){
-            throw new Error(error?.response.message,{cause:error})
-        }
     }
 
+    try{
+       const res= await refreshPromise
+       return res.data
+    }catch(error){
+        throw new Error(error?.response?.data?.error,{cause:error})
+    }finally{
+        refreshPromise=null
+    }
 }
 
-export async function authenticator(url,options={})//options=data,method
+export async function authenticator(Url,options={})//options=data,method
 {
     const doFetch=(token)=>{
-       const completeUrl=BACKEND_URL+url
+       const url=BACKEND_URL+Url
 
-       return axios({...options,completeUrl,
+       return axios({...options,url,
         headers:{Authorization:`Bearer ${token}`},
         withCredentials:true
      })
@@ -44,15 +46,16 @@ export async function authenticator(url,options={})//options=data,method
         
     } catch (error) {
 
-        if(error?.response.status==401)
+        if(error?.response?.status==401)
         {
             try {
-                const newToken=await refreshAccessToken()
+                const { accessToken: newToken }=await refreshAccessToken()
+                setAccessToken(newToken)
                 const res=await doFetch(newToken) 
                 return res.data
 
             } catch {
-                window.location.href("/login")  
+                window.location.href="/login"
                 return null
             }
         }

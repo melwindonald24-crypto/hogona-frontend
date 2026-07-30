@@ -4,13 +4,15 @@ import { useForm } from "react-hook-form";
 
 
 
+
 export function useAuthFrom()
 {
     const [isRegister,setIsRegister]=useState(false)
     const form=useForm()
     const {loginHandler,registerHandler}=useAuthHandlers();
 
-    const  onClick=(mode)=>{
+    const  onToggleMode=(mode)=>{
+
         mode==="register"?setIsRegister(true):setIsRegister(false)
     }
 
@@ -27,12 +29,13 @@ export function useAuthFrom()
             }
    
         } catch (error) {
+            form.setError("root",{message:error.message})
 
-            return{error:error.message}
+          }
         }
             
-        }
-        return {...form,onSubmit,onClick,isRegister}
+        
+        return {...form,onSubmit,onToggleMode,isRegister}
 
 }
 
