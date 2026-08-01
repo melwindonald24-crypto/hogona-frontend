@@ -19,19 +19,19 @@ export const RegisterForm=({register, handleSubmit, onSubmit, errors, isLoading,
        <div className="flex w-full flex-col gap-3">
         <FormInputs
         type="text"
-        placeHolder="name"
+        placeholder="name"
         invalid={!!errors.name}
         {...register("name",{required:true})}
        />
        <FormInputs
         type="email"
-        placeHolder="email"
+        placeholder="email"
         invalid={!!errors.email}
         {...register("email",{required:true})}
        />
        <FormInputs
         type="password"
-        placeHolder="passwod"
+        placeholder="password"
         invalid={!!errors.password}
         {...register("password",{required:true})}
        />
@@ -43,11 +43,11 @@ export const RegisterForm=({register, handleSubmit, onSubmit, errors, isLoading,
        >Create Account</AuthButton>
 
 
-       <p className="text-xs text-[#F5EEDD]" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}>
+       <p className="text-xs text-[#000000]" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)"  ,fontFamily: "'Fraunces', serif"  }}>
         Already have an account?{" "}
         <button
           type="button"
-          onClick={()=>{onToggleMode("register")}}
+          onClick={()=>{onToggleMode("login")}}
           className="font-medium underline underline-offset-2"
         >
           Log In

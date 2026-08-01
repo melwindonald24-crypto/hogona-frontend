@@ -27,8 +27,8 @@ export function useAuthHandlers() {
    
     setLoading(true);
     try {
-      const message = await register(data);
-      return message;
+      await register(data);
+      return "good news!!!you are registered successfully. login now";
     } catch (error) {
       throw new Error(error.message,{cause:error});
     } finally {

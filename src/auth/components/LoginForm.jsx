@@ -17,13 +17,13 @@ export const LoginForm=({register, handleSubmit, onSubmit, errors, isLoading, on
        <div className="flex w-full flex-col gap-3">
        <FormInputs
         type="email"
-        placeHolder="email"
+        placeholder="email"
         invalid={!!errors.email}
         {...register("email",{required:true})}
        />
        <FormInputs
         type="password"
-        placeHolder="passwod"
+        placeholder="password"
         invalid={!!errors.password}
         {...register("password",{required:true})}
        />
@@ -36,11 +36,11 @@ export const LoginForm=({register, handleSubmit, onSubmit, errors, isLoading, on
        >Log in</AuthButton>
 
 
-       <p className="text-xs text-[#F5EEDD]" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)" }}>
+       <p className="text-xs text-[#000000]" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.35)"  ,fontFamily: "'Fraunces', serif"  }}>
         New to Hogona?{" "}
         <button
           type="button"
-          onClick={()=>{onToggleMode("login")}}
+          onClick={()=>{onToggleMode("register")}}
           className="font-medium underline underline-offset-2"
         >
           Create one

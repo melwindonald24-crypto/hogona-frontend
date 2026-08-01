@@ -14,7 +14,7 @@ export async function login(data) {
     );
   }
 }
-//signin suceessfull?
+//register suceessfull?
 export async function register(data) {
   const url = BACKEND_URL + "/register";
   try {
